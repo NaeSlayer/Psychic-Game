@@ -1,7 +1,9 @@
 
 
-// Creates an array to store possible computerChoices
+// Creates arrays to store possible computerChoices and userChoices
 var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+var userChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 
 //Creates variables to store wins, losses, guessesLeft, and letters alreadyGuessed
@@ -10,23 +12,34 @@ var losses = 0;
 var guessesLeft = 9;
 var alreadyGuessed = [];
 
+
 //functions that update the wins, losses, guessesLeft
+function resetGlobalVariables() {
+    //list of all the variables with original attributes here
+    var guessesLeft = 9;
+    var alreadyGuessed = [];
+
+}
 function updateWins() {
     document.getElementById("wins").innerHTML = "Wins: " + wins;
+    resetGlobalVariables();
+    
 }
 function updateLosses() {
     document.getElementById("losses").innerHTML = "Losses: " + losses;
+    resetGlobalVariables();
+    
 }
 function updateGuessesLeft() {
     document.getElementById("guessesLeft").innerHTML = "Guesses Left: " + guessesLeft;
 
-    if (guessesLeft === 0) {
-        document.getElementById("guessesLeft").innerHTML = "Game Over!";
+    if (guessesLeft < 1) {
+        //document.getElementById("guessesLeft").innerHTML = "Game Over!";
         losses++;
-        return;
-    }
-        
-    
+        resetGlobalVariables();
+        }
+
+           
 }
 
 
@@ -35,14 +48,14 @@ function updateGuessesLeft() {
 // ==============================================================================
 
 // Function to render letter.
-function renderLetter() {
+/*function renderLetter() {
     // If there are still more questions, render the next one.
     if (guessesLeft === 0) {
         document.querySelector("#question").innerHTML = "Game Over!";
         document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + questionsArray.length;
     }
    
-}
+}   */
 
 updateWins();
 updateLosses();
@@ -61,19 +74,23 @@ document.onkeyup = function (event) {
     // Randomly chooses a choice from the options array. This is the Computer's guess.
     var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
-    if ((userGuess === "a") && (computerGuess === "a")) {
+    for (var i = 0; i < computerChoices.length; i++) {
+
+    if ((userGuess === userChoices[i]) && (computerGuess === computerChoices[i])) {
         console.log("You win!");
         wins++;
-        return;
-    } else if ((userGuess === "a") && (computerGuess != "a")) {
+        
+        
+    } else if ((userGuess === userChoices[i]) && (computerGuess != computerChoices[i])) {
         console.log("wrong");
         console.log(guessesLeft);
         guessesLeft--;
         
-}
+}}
 
     function updateAlreadyGuessed() {
-        document.getElementById("alreadyGuessed").innerHTML = alreadyGuessed.push(userGuess)
+        document.getElementById("alreadyGuessed").innerHTML = alreadyGuessed.push(userGuess);
+        document.getElementById("alreadyGuessed").innerHTML = alreadyGuessed;
     }
     updateAlreadyGuessed();
     updateGuessesLeft();
