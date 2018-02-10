@@ -16,18 +16,22 @@ var alreadyGuessed = [];
 //functions that update the wins, losses, guessesLeft
 function resetGlobalVariables() {
     //list of all the variables with original attributes here
-    var guessesLeft = 9;
-    var alreadyGuessed = [];
+   guessesLeft = 9;
+    alreadyGuessed = [];
+    updateGuessesLeft();
+
 
 }
 function updateWins() {
     document.getElementById("wins").innerHTML = "Wins: " + wins;
-    resetGlobalVariables();
+    //resetGlobalVariables();
     
 }
 function updateLosses() {
     document.getElementById("losses").innerHTML = "Losses: " + losses;
-    resetGlobalVariables();
+    //resetGlobalVariables();
+    
+    
     
 }
 function updateGuessesLeft() {
@@ -47,15 +51,7 @@ function updateGuessesLeft() {
 // FUNCTIONS
 // ==============================================================================
 
-// Function to render letter.
-/*function renderLetter() {
-    // If there are still more questions, render the next one.
-    if (guessesLeft === 0) {
-        document.querySelector("#question").innerHTML = "Game Over!";
-        document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + questionsArray.length;
-    }
-   
-}   */
+
 
 updateWins();
 updateLosses();
@@ -79,14 +75,18 @@ document.onkeyup = function (event) {
     if ((userGuess === userChoices[i]) && (computerGuess === computerChoices[i])) {
         console.log("You win!");
         wins++;
+        resetGlobalVariables();
         
         
     } else if ((userGuess === userChoices[i]) && (computerGuess != computerChoices[i])) {
         console.log("wrong");
-        console.log(guessesLeft);
         guessesLeft--;
+        console.log(guessesLeft);
         
-}}
+    }
+    
+        
+}
 
     function updateAlreadyGuessed() {
         document.getElementById("alreadyGuessed").innerHTML = alreadyGuessed.push(userGuess);
